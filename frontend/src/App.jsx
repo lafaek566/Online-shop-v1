@@ -11,7 +11,7 @@ import CheckoutHistory from "./pages/CheckoutHistory";
 import AdminDashboard from "./components/admin/adminDashboard";
 import AdminEditUser from "./components/admin/user/AdminEditUser";
 import EditProduct from "./components/admin/product/EditProduct";
-import EditCheckout from "./components/admin/checkout/Editcheckout";
+import EditCheckout from "./components/admin/adminCheckout/Editcheckout";
 
 export default function App() {
   return (

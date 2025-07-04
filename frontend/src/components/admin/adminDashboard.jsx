@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AddProduct from "./product/AddProduct";
 import ProductList from "./product/ProductList";
-import AdminCheckoutList from "./checkout/AdminCheckoutList";
+import AdminCheckoutList from "./adminCheckout/AdminCheckoutList";
 import AdminUserList from "./user/AdminUserList";
 import AdminAddUser from "./user/AdminAddUser";
 
