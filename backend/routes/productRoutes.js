@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const {
@@ -10,6 +9,8 @@ const {
   deleteProduct,
 } = require("../controllers/productControllers");
 
+const router = express.Router();
+
 // ✅ Konfigurasi penyimpanan
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
@@ -17,7 +18,6 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname)),
 });
 
-// ✅ Validasi ekstensi file (webp, avif, jpg, jpeg, png)
 const fileFilter = (req, file, cb) => {
   const allowedTypes = [
     "image/webp",
@@ -26,16 +26,10 @@ const fileFilter = (req, file, cb) => {
     "image/png",
     "image/jpg",
   ];
-
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(
-      new Error(
-        "❌ Format gambar tidak didukung. Hanya .webp, .avif, .jpg, .jpeg, dan .png yang diperbolehkan."
-      ),
-      false
-    );
+    cb(new Error("❌ Format gambar tidak didukung."), false);
   }
 };
 

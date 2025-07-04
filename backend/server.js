@@ -11,31 +11,23 @@ const checkoutRoutes = require("./routes/checkoutRoutes");
 dotenv.config();
 
 const app = express();
-const corsOptions = {
-  origin: [
-    "https://online-shop-v1-h64c.vercel.app",
-    "https://online-shop-eight-sepia.vercel.app",
-  ],
-  credentials: true,
-};
-app.use(cors(corsOptions));
 
+app.use(cors());
 app.use(express.json());
 
-// ✅ Static folder untuk akses gambar
-app.use("/uploads", express.static("uploads"));
+// ✅ Static folder
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ✅ Route upload MULTER DULU SEBELUM express.json
+// ✅ Routes
 app.use("/api/products", productRoutes);
-
 app.use("/api/auth", authRoutes);
 app.use("/api/checkout", checkoutRoutes);
 
-// ✅ Connect MongoDB
+// ✅ MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-const PORT = process.env.PORT || 5005;
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
