@@ -17,7 +17,7 @@ export default function Checkout() {
   const [selectedImages, setSelectedImages] = useState({});
 
   useEffect(() => {
-    axios.get("${import.meta.env.VITE_API_URL}/api/products").then((res) => {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/products`).then((res) => {
       setProducts(res.data);
     });
 
@@ -66,7 +66,7 @@ export default function Checkout() {
 
     try {
       const res = await axios.post(
-        "${import.meta.env.VITE_API_URL}/api/checkout",
+        `${import.meta.env.VITE_API_URL}/api/checkout`,
         {
           email,
           cart: enrichedCart,

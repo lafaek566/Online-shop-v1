@@ -28,7 +28,7 @@ export default function Products() {
   });
 
   useEffect(() => {
-    axios.get("${import.meta.env.VITE_API_URL}/api/products").then((res) => {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/products`).then((res) => {
       setProducts(res.data);
     });
 

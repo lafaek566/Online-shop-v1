@@ -62,7 +62,7 @@ export default function AddProduct() {
       }
 
       await axios.post(
-        "${import.meta.env.VITE_API_URL}/api/products/add",
+        `${import.meta.env.VITE_API_URL}/api/products/add`,
         formData
       );
       alert("✅ Produk berhasil ditambahkan!");

@@ -9,7 +9,7 @@ export default function AdminCheckoutList({ setActiveTab }) {
   const navigate = useNavigate();
 
   const fetchCheckouts = async () => {
-    const res = await axios.get("${import.meta.env.VITE_API_URL}/api/checkout");
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/checkout`);
     setCheckouts(res.data.reverse()); // supaya terbaru di atas
   };
 
