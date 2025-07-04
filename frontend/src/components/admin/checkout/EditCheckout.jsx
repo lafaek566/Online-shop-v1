@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function EditCheckout() {
+export default function Editcheckout() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [checkout, setCheckout] = useState(null);
