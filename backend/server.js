@@ -12,10 +12,12 @@ dotenv.config();
 
 const app = express();
 const corsOptions = {
-  origin: ["https://online-shop-v1-h64c.vercel.app"], // ✅ allow only your frontend
+  origin: [
+    "https://online-shop-v1-h64c.vercel.app",
+    "https://online-shop-eight-sepia.vercel.app",
+  ],
   credentials: true,
 };
-
 app.use(cors(corsOptions));
 
 app.use(express.json());
