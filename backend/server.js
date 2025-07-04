@@ -11,7 +11,13 @@ const checkoutRoutes = require("./routes/checkoutRoutes");
 dotenv.config();
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: ["https://online-shop-v1-h64c.vercel.app"], // ✅ allow only your frontend
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // ✅ Static folder untuk akses gambar
