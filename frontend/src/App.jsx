@@ -18,7 +18,7 @@ export default function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        {/* 👤 User Akses */}
+        {/* User Akses */}
         <Route path="/" element={<Products />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -26,13 +26,13 @@ export default function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/checkout-history/:id" element={<CheckoutHistory />} />
 
-        {/* 🛠 Admin Akses */}
+        {/*Admin Akses */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/user/edit/:id" element={<AdminEditUser />} />
         <Route path="/product/edit/:id" element={<EditProduct />} />
         <Route path="/checkout/edit/:id" element={<EditCheckout />} />
 
-        {/* ✅ Tambahkan fallback route jika masih ada yang pakai /edit/:id */}
+        {/* Tambahkan fallback route jika masih ada yang pakai /edit/:id */}
         <Route path="/edit/:id" element={<EditProduct />} />
       </Routes>
     </BrowserRouter>

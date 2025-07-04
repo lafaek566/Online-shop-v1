@@ -20,6 +20,12 @@ export default function CheckoutHistory() {
       });
   }, [id]);
 
+  const rupiah = (num) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(num);
+
   if (loading) {
     return (
       <div className="max-w-3xl mx-auto mt-12 text-center text-gray-600">
@@ -35,6 +41,13 @@ export default function CheckoutHistory() {
       </div>
     );
   }
+
+  // ✅ Hitung total item dan total harga
+  const totalQty = checkout.cart.reduce((sum, item) => sum + item.qty, 0);
+  const totalPrice = checkout.cart.reduce(
+    (sum, item) => sum + item.qty * item.price,
+    0
+  );
 
   return (
     <div className="max-w-3xl mx-auto mt-8 p-6 bg-white rounded shadow-lg">
@@ -60,11 +73,29 @@ export default function CheckoutHistory() {
               <p className="text-sm text-gray-600">Qty: {item.qty}</p>
             </div>
             <p className="text-right text-gray-800 font-bold">
-              Rp{item.price.toLocaleString()}
+              {rupiah(item.price)}
             </p>
           </li>
         ))}
       </ul>
+
+      {/* Total Summary */}
+      <div className="mt-6 p-4 bg-gray-100 border rounded-lg shadow-sm">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-gray-700">🧾 Total Jumlah Barang:</span>
+          <span className="text-base font-semibold text-gray-800">
+            {totalQty} item
+          </span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-lg font-semibold text-gray-700">
+            Total Belanja:
+          </span>
+          <span className="text-xl font-bold text-green-700">
+            {rupiah(totalPrice)}
+          </span>
+        </div>
+      </div>
 
       <div className="mt-6 text-center">
         <Link

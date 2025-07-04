@@ -90,7 +90,7 @@ export default function Products() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed top-16 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-2 rounded-3xl shadow-lg z-50"
+            className="fixed top-16 left-4 bg-green-600 text-white px-6 py-2 rounded-3xl shadow-lg z-50"
           >
             ✅ Item berhasil ditambahkan!
           </motion.div>

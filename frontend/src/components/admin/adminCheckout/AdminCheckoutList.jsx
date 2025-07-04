@@ -24,7 +24,12 @@ export default function AdminCheckoutList({ setActiveTab }) {
     fetchCheckouts();
   }, []);
 
-  // Hitung pagination
+  const rupiah = (num) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(num);
+
   const totalPages = Math.ceil(checkouts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = checkouts.slice(startIndex, startIndex + itemsPerPage);
@@ -38,43 +43,65 @@ export default function AdminCheckoutList({ setActiveTab }) {
       ) : (
         <>
           <div className="space-y-6">
-            {currentItems.map((c) => (
-              <div
-                key={c._id}
-                className="border p-4 rounded shadow text-sm sm:text-base"
-              >
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
-                  <div className="mb-2 sm:mb-0">
-                    <p className="font-bold break-all">{c.email}</p>
-                    <p className="text-xs text-gray-500">
-                      {new Date(c.createdAt).toLocaleString()}
-                    </p>
+            {currentItems.map((c) => {
+              const totalQty = c.cart.reduce((sum, item) => sum + item.qty, 0);
+              const totalPrice = c.cart.reduce(
+                (sum, item) => sum + item.qty * item.price,
+                0
+              );
+
+              return (
+                <div
+                  key={c._id}
+                  className="border p-4 rounded shadow text-sm sm:text-base"
+                >
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                    <div className="mb-2 sm:mb-0">
+                      <p className="font-bold break-all">{c.email}</p>
+                      <p className="text-xs text-gray-500">
+                        {new Date(c.createdAt).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="flex gap-2 mt-2 sm:mt-0">
+                      <button
+                        onClick={() => navigate(`/checkout/edit/${c._id}`)}
+                        className="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(c._id)}
+                        className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
+                      >
+                        🗑️ Hapus
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex gap-2 mt-2 sm:mt-0">
-                    <button
-                      onClick={() => navigate(`/checkout/edit/${c._id}`)}
-                      className="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600"
-                    >
-                      ✏️ Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(c._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
-                    >
-                      🗑️ Hapus
-                    </button>
+
+                  <ul className="pl-4 list-disc text-xs sm:text-sm mb-2">
+                    {c.cart.map((item, idx) => (
+                      <li key={idx}>
+                        {item.title} - {item.qty}x Rp
+                        {item.price.toLocaleString()}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* ✅ Total Section */}
+                  <div className="border-t pt-2 mt-2 text-sm text-gray-700 flex justify-between">
+                    <span>
+                      🧾 Total Item: <strong>{totalQty}</strong>
+                    </span>
+                    <span>
+                      💰 Subtotal:{" "}
+                      <strong className="text-green-700">
+                        {rupiah(totalPrice)}
+                      </strong>
+                    </span>
                   </div>
                 </div>
-                <ul className="pl-4 list-disc text-xs sm:text-sm">
-                  {c.cart.map((item, idx) => (
-                    <li key={idx}>
-                      {item.title} - {item.qty}x Rp
-                      {item.price.toLocaleString()}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Pagination */}

@@ -11,6 +11,8 @@ export default function Checkout() {
   const [authPassword, setAuthPassword] = useState("");
   const [orderId, setOrderId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [totalQty, setTotalQty] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0); // ✅ Tambahkan ini
 
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -102,6 +104,19 @@ export default function Checkout() {
     }
   };
 
+  useEffect(() => {
+    const total = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
+    const qtyTotal = cart.reduce((sum, item) => sum + item.qty, 0);
+    setTotalPrice(total);
+    setTotalQty(qtyTotal);
+  }, [cart]);
+
+  const rupiah = (num) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(num);
+
   return (
     <div className="max-w-5xl mx-auto mt-[100px] p-4 md:p-6 bg-white rounded shadow-lg">
       {!orderId && (
@@ -162,28 +177,30 @@ export default function Checkout() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-4">
-                      <div>
-                        <label className="text-xs text-gray-600 block mb-1">
-                          Harga
-                        </label>
-                        <div className="font-semibold text-green-600">
-                          Rp {item.price}
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="text-xs text-gray-600 block mb-1">
-                          Jumlah
-                        </label>
-                        <input
-                          type="number"
-                          min={1}
-                          className="w-20 border rounded px-2 py-1"
-                          value={item.qty}
-                          onChange={(e) =>
-                            handleInputChange(index, "qty", e.target.value)
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() =>
+                            handleInputChange(
+                              index,
+                              "qty",
+                              Math.max(1, item.qty - 1)
+                            )
                           }
-                        />
+                          className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base rounded-full bg-gray-200 hover:bg-gray-300 text-gray-800"
+                        >
+                          −
+                        </button>
+                        <span className="text-sm sm:text-base font-medium w-6 text-center">
+                          {item.qty}
+                        </span>
+                        <button
+                          onClick={() =>
+                            handleInputChange(index, "qty", item.qty + 1)
+                          }
+                          className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center text-sm sm:text-base rounded-full bg-gray-200 hover:bg-gray-300 text-gray-800"
+                        >
+                          +
+                        </button>
                       </div>
 
                       <div className="ml-auto">
@@ -200,6 +217,27 @@ export default function Checkout() {
               </div>
             );
           })}
+
+          {cart.length > 0 && (
+            <div className="mt-6 p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-sm">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm text-gray-700">
+                  🧾 Total Jumlah Barang:
+                </span>
+                <span className="text-base font-semibold text-gray-800">
+                  {totalQty} item
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-semibold text-gray-700">
+                  💰 Total Belanja:
+                </span>
+                <span className="text-xl font-bold text-green-700">
+                  {rupiah(totalPrice)}
+                </span>
+              </div>
+            </div>
+          )}
 
           <button
             onClick={handleCheckout}
@@ -220,6 +258,15 @@ export default function Checkout() {
           )}
         </>
       )}
+
+      <div className="mt-4 text-center">
+        <a
+          href="/"
+          className="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md text-sm font-medium transition duration-200"
+        >
+          Kembali ke Dashboard
+        </a>
+      </div>
 
       {orderId && (
         <div className="mt-6 p-4 border border-green-300 bg-green-50 rounded text-center">
