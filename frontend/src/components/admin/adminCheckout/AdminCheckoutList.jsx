@@ -93,7 +93,7 @@ export default function AdminCheckoutList({ setActiveTab }) {
                       🧾 Total Item: <strong>{totalQty}</strong>
                     </span>
                     <span>
-                      💰 Subtotal:{" "}
+                      Subtotal:{" "}
                       <strong className="text-green-700">
                         {rupiah(totalPrice)}
                       </strong>

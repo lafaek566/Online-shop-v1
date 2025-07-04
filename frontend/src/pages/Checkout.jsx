@@ -44,7 +44,6 @@ export default function Checkout() {
 
   const handleCheckout = async () => {
     if (!isAuthenticated) {
-      alert("⚠️ Anda harus login terlebih dahulu untuk checkout.");
       setShowAuthForm(true);
       return;
     }
@@ -230,7 +229,7 @@ export default function Checkout() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold text-gray-700">
-                  💰 Total Belanja:
+                  Total Belanja:
                 </span>
                 <span className="text-xl font-bold text-green-700">
                   {rupiah(totalPrice)}

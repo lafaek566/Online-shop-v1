@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/checkout-history/:id" element={<CheckoutHistory />} />
 
-        {/*Admin Akses */}
+        {/* Admin Akses */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/user/edit/:id" element={<AdminEditUser />} />
         <Route path="/product/edit/:id" element={<EditProduct />} />

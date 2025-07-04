@@ -185,7 +185,7 @@ export default function Products() {
                   onClick={() => navigate("/checkout")}
                   className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
                 >
-                  🚀 Lanjut Checkout
+                  Lanjut Checkout
                 </button>
               )}
             </motion.div>
@@ -226,19 +226,20 @@ function ProductCard({ prod, handleAddToCart }) {
         className="bg-white rounded-xl shadow-md p-3 hover:shadow-xl transition text-sm"
         whileHover={{ scale: 1.03 }}
       >
-        <div className="mb-2">
+        {/* Gambar utama dengan ukuran tetap */}
+        <div className="mb-2 w-full h-36 sm:h-40 bg-gray-100 rounded-md flex items-center justify-center overflow-hidden">
           {images.length > 0 ? (
             <img
               src={`${import.meta.env.VITE_API_URL}/${images[mainImageIndex]}`}
               alt={prod.title}
-              className="object-cover w-full h-32 sm:h-36 rounded-md"
+              className="object-cover w-full h-full"
             />
           ) : (
-            <div className="bg-gray-100 w-full h-32 sm:h-36 rounded-md flex items-center justify-center text-gray-400">
-              Tidak ada gambar
-            </div>
+            <div className="text-gray-400">Tidak ada gambar</div>
           )}
         </div>
+
+        {/* Thumbnail */}
         {images.length > 1 && (
           <div className="flex gap-1 mb-2 overflow-x-auto">
             {images.map((img, idx) => (
@@ -247,7 +248,7 @@ function ProductCard({ prod, handleAddToCart }) {
                 src={`${import.meta.env.VITE_API_URL}/${img}`}
                 alt={`Thumb ${idx + 1}`}
                 onClick={() => setMainImageIndex(idx)}
-                className={`w-10 h-10 object-cover rounded cursor-pointer border ${
+                className={`w-12 h-12 object-cover rounded cursor-pointer border ${
                   idx === mainImageIndex
                     ? "border-purple-500"
                     : "border-gray-300"
@@ -256,10 +257,14 @@ function ProductCard({ prod, handleAddToCart }) {
             ))}
           </div>
         )}
+
+        {/* Info produk */}
         <h3 className="font-semibold mt-2 truncate">{prod.title}</h3>
         <p className="text-xs text-gray-500 truncate">{prod.description}</p>
         <p className="text-xs text-gray-600">SKU: {prod.sku}</p>
         <p className="text-xs text-gray-600 mb-2">Stok: {prod.qty}</p>
+
+        {/* Tombol */}
         <button
           onClick={() => handleAddToCart(prod)}
           className="w-full bg-purple-600 text-white py-1.5 rounded hover:bg-purple-700 text-xs"
@@ -285,27 +290,36 @@ function ProductCard({ prod, handleAddToCart }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowModal(false)} // ❌ Close on background click
+            onClick={() => setShowModal(false)}
           >
             <motion.div
               className="bg-white rounded-lg shadow-lg max-w-3xl w-full relative p-4"
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()} // ✅ Prevent closing when clicking inside modal
+              onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-2 right-2 text-gray-600 hover:text-red-600 text-xl font-bold"
+                className="absolute top-2 right-2 text-gray-600 hover:text-red-600 text-xl font-bold z-50"
                 onClick={() => setShowModal(false)}
               >
                 ❌
               </button>
-              <div className="relative">
-                <img
-                  src={`${import.meta.env.VITE_API_URL}/${images[slideIndex]}`}
-                  alt={`Detail ${slideIndex}`}
-                  className="w-full h-[400px] sm:h-[500px] object-contain rounded"
-                />
+
+              <div className="relative w-full h-[400px] sm:h-[500px] bg-gray-100 flex items-center justify-center rounded overflow-hidden">
+                {images.length > 0 ? (
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}/${
+                      images[slideIndex]
+                    }`}
+                    alt={`Detail ${slideIndex}`}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <p className="text-gray-400">Tidak ada gambar</p>
+                )}
+
+                {/* Navigasi slide */}
                 {images.length > 1 && (
                   <>
                     <button
@@ -323,6 +337,8 @@ function ProductCard({ prod, handleAddToCart }) {
                   </>
                 )}
               </div>
+
+              {/* Detail info */}
               <div className="mt-4">
                 <h2 className="text-lg font-bold">{prod.title}</h2>
                 <p className="text-sm text-gray-600 mt-1">{prod.description}</p>

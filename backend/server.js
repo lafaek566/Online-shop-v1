@@ -12,17 +12,17 @@ dotenv.config();
 
 const app = express();
 
-const corsOptions = {
-  origin: [
-    "https://go-shop-six.vercel.app",
-    "https://online-shop-eight-sepia.vercel.app",
-    "https://online-shop-v1-h64c.vercel.app",
-    // tambahkan domain lain jika ada
-  ],
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
+// const corsOptions = {
+//   origin: [
+//     "https://go-shop-six.vercel.app",
+//     "https://online-shop-eight-sepia.vercel.app",
+//     "https://online-shop-v1-h64c.vercel.app",
+//     // tambahkan domain lain jika ada
+//   ],
+//   credentials: true,
+// };
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 // ✅ Static folder
@@ -36,7 +36,7 @@ app.use("/api/checkout", checkoutRoutes);
 // ✅ MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
+  .then(() => console.log("✅ Hay MongoDB "))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 const PORT = process.env.PORT || 8080;

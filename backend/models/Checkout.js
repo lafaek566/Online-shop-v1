@@ -1,4 +1,3 @@
-// models/Checkout.js
 const mongoose = require("mongoose");
 
 const CheckoutSchema = new mongoose.Schema({

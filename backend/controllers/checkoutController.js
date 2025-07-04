@@ -1,4 +1,3 @@
-// controllers/checkoutController.js
 const Checkout = require("../models/Checkout");
 const nodemailer = require("nodemailer");
 
