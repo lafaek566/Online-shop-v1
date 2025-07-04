@@ -26,7 +26,7 @@ export default function AdminAddCheckout({ setActiveTab }) {
         cart: [cartItem], // array sesuai format backend
       };
       await axios.post(
-        "${import.meta.env.VITE_API_URL}/api/checkout",
+        `${import.meta.env.VITE_API_URL}/api/checkout`,
         newCheckout
       );
       alert("✅ Checkout berhasil ditambahkan!");

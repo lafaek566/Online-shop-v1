@@ -7,7 +7,7 @@ export default function AdminUserList() {
   const itemsPerPage = 5;
 
   const fetchUsers = async () => {
-    const res = await axios.get("${import.meta.env.VITE_API_URL}/api/auth");
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`);
     setUsers(res.data);
   };
 
