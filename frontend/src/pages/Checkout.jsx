@@ -280,7 +280,7 @@ export default function Checkout() {
 
             <button
               onClick={handleAuth}
-              className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold"
+              className="w-full bg-green-600 hover:bg-green-700 text-black py-2 rounded-lg font-semibold"
             >
               {authMode === "login" ? "Masuk" : "Daftar"}
             </button>
