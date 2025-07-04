@@ -252,8 +252,12 @@ export default function Checkout() {
           className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          onClick={() => setShowAuthForm(false)}
         >
-          <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md mx-auto">
+          <div
+            className="relative bg-white p-6 rounded-lg shadow-xl w-full max-w-md mx-auto"
+            onClick={(e) => e.stopPropagation()} // <- Supaya klik di dalam modal tidak menutup
+          >
             <h3 className="text-xl font-bold mb-4 text-gray-700 text-center">
               {authMode === "login" ? "Masuk" : "📝 Daftar"} ke Akun Anda
             </h3>
@@ -300,7 +304,7 @@ export default function Checkout() {
             {/* Optional: Tombol Tutup */}
             <button
               onClick={() => setShowAuthForm(false)}
-              className="absolute top-3 right-4 text-gray-500 hover:text-black"
+              className="absolute top-3 right-4 text-black hover:text-red-600 text-xl font-bold"
             >
               ✖
             </button>
