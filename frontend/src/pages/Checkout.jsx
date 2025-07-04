@@ -300,7 +300,7 @@ export default function Checkout() {
             {/* Optional: Tombol Tutup */}
             <button
               onClick={() => setShowAuthForm(false)}
-              className="absolute top-3 right-4 text-gray-500 hover:text-black"
+              className="absolute top-3 right-4 text-orange-700 hover:text-black"
             >
               ✖
             </button>
