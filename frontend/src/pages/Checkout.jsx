@@ -255,7 +255,7 @@ export default function Checkout() {
         >
           <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md mx-auto">
             <h3 className="text-xl font-bold mb-4 text-gray-700 text-center">
-              {authMode === "login" ? "🔐 Masuk" : "📝 Daftar"} ke Akun Anda
+              {authMode === "login" ? "Masuk" : "📝 Daftar"} ke Akun Anda
             </h3>
 
             <label className="text-sm font-medium text-gray-700">Email</label>
@@ -280,7 +280,7 @@ export default function Checkout() {
 
             <button
               onClick={handleAuth}
-              className="w-full bg-green-600 hover:bg-green-700 text-black py-2 rounded-lg font-semibold"
+              className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold"
             >
               {authMode === "login" ? "Masuk" : "Daftar"}
             </button>
@@ -300,7 +300,7 @@ export default function Checkout() {
             {/* Optional: Tombol Tutup */}
             <button
               onClick={() => setShowAuthForm(false)}
-              className="absolute top-3 right-4 text-orange-700 hover:text-black"
+              className="absolute top-3 right-4 text-gray-500 hover:text-black"
             >
               ✖
             </button>
