@@ -15,7 +15,10 @@ export default function AdminAddUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5005/api/auth/register", form);
+      await axios.post(
+        "${import.meta.env.VITE_API_URL}/api/auth/register",
+        form
+      );
       alert("✅ User berhasil ditambahkan!");
       setForm({ username: "", email: "", password: "" });
     } catch (err) {

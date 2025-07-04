@@ -28,7 +28,7 @@ export default function Products() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5005/api/products").then((res) => {
+    axios.get("${import.meta.env.VITE_API_URL}/api/products").then((res) => {
       setProducts(res.data);
     });
 
@@ -229,7 +229,7 @@ function ProductCard({ prod, handleAddToCart }) {
         <div className="mb-2">
           {images.length > 0 ? (
             <img
-              src={`http://localhost:5005/${images[mainImageIndex]}`}
+              src={`${import.meta.env.VITE_API_URL}/${images[mainImageIndex]}`}
               alt={prod.title}
               className="object-cover w-full h-32 sm:h-36 rounded-md"
             />
@@ -244,7 +244,7 @@ function ProductCard({ prod, handleAddToCart }) {
             {images.map((img, idx) => (
               <img
                 key={idx}
-                src={`http://localhost:5005/${img}`}
+                src={`${import.meta.env.VITE_API_URL}/${img}`}
                 alt={`Thumb ${idx + 1}`}
                 onClick={() => setMainImageIndex(idx)}
                 className={`w-10 h-10 object-cover rounded cursor-pointer border ${
@@ -302,7 +302,7 @@ function ProductCard({ prod, handleAddToCart }) {
               </button>
               <div className="relative">
                 <img
-                  src={`http://localhost:5005/${images[slideIndex]}`}
+                  src={`${import.meta.env.VITE_API_URL}/${images[slideIndex]}`}
                   alt={`Detail ${slideIndex}`}
                   className="w-full h-[400px] sm:h-[500px] object-contain rounded"
                 />

@@ -61,7 +61,10 @@ export default function AddProduct() {
         formData.append("images", img);
       }
 
-      await axios.post("http://localhost:5005/api/products/add", formData);
+      await axios.post(
+        "${import.meta.env.VITE_API_URL}/api/products/add",
+        formData
+      );
       alert("✅ Produk berhasil ditambahkan!");
 
       // Reset form

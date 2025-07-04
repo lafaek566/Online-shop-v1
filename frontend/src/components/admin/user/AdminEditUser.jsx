@@ -10,7 +10,7 @@ export default function AdminEditUser() {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/api/auth/${id}`).then((res) => {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/auth/${id}`).then((res) => {
       const { email } = res.data;
       setForm({ email, password: "" }); // kosongkan password
     });
@@ -31,7 +31,10 @@ export default function AdminEditUser() {
         dataToUpdate.password = form.password;
       }
 
-      await axios.put(`http://localhost:5005/api/auth/${id}`, dataToUpdate);
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/auth/${id}`,
+        dataToUpdate
+      );
       alert("✅ User berhasil diupdate!");
       window.location.href = "/admin"; // kembali ke dashboard admin
     } catch (err) {

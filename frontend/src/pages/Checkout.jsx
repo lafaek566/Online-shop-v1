@@ -17,7 +17,7 @@ export default function Checkout() {
   const [selectedImages, setSelectedImages] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:5005/api/products").then((res) => {
+    axios.get("${import.meta.env.VITE_API_URL}/api/products").then((res) => {
       setProducts(res.data);
     });
 
@@ -65,10 +65,13 @@ export default function Checkout() {
     });
 
     try {
-      const res = await axios.post("http://localhost:5005/api/checkout", {
-        email,
-        cart: enrichedCart,
-      });
+      const res = await axios.post(
+        "${import.meta.env.VITE_API_URL}/api/checkout",
+        {
+          email,
+          cart: enrichedCart,
+        }
+      );
 
       alert("✅ Checkout sukses & email terkirim!");
       setOrderId(res.data.checkout._id);
@@ -84,7 +87,7 @@ export default function Checkout() {
 
   const handleAuth = async () => {
     try {
-      const url = `http://localhost:5005/api/auth/${authMode}`;
+      const url = `${import.meta.env.VITE_API_URL}/api/auth/${authMode}`;
       await axios.post(url, {
         email: authEmail,
         password: authPassword,
@@ -110,8 +113,9 @@ export default function Checkout() {
           {cart.map((item, index) => {
             const product = products.find((p) => p._id === item.productId);
             const imageUrls =
-              product?.images?.map((img) => `http://localhost:5005/${img}`) ||
-              [];
+              product?.images?.map(
+                (img) => `${import.meta.env.VITE_API_URL}/${img}`
+              ) || [];
             const selectedIndex = selectedImages[item.productId] || 0;
 
             return (

@@ -9,13 +9,13 @@ export default function AdminCheckoutList({ setActiveTab }) {
   const navigate = useNavigate();
 
   const fetchCheckouts = async () => {
-    const res = await axios.get("http://localhost:5005/api/checkout");
+    const res = await axios.get("${import.meta.env.VITE_API_URL}/api/checkout");
     setCheckouts(res.data.reverse()); // supaya terbaru di atas
   };
 
   const handleDelete = async (id) => {
     if (confirm("Yakin ingin menghapus checkout ini?")) {
-      await axios.delete(`http://localhost:5005/api/checkout/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/checkout/${id}`);
       fetchCheckouts();
     }
   };

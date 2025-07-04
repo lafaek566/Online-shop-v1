@@ -10,7 +10,9 @@ export default function ProductList() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5005/api/products");
+      const res = await axios.get(
+        "${import.meta.env.VITE_API_URL}/api/products"
+      );
       setProducts(res.data);
     } catch (err) {
       console.error("❌ Gagal mengambil produk:", err);
@@ -20,7 +22,9 @@ export default function ProductList() {
   const handleDelete = async (id) => {
     if (confirm("Hapus produk ini?")) {
       try {
-        await axios.delete(`http://localhost:5005/api/products/${id}`);
+        await axios.delete(
+          `${import.meta.env.VITE_API_URL}/api/products/${id}`
+        );
         fetchProducts(); // refresh setelah hapus
       } catch (err) {
         alert("❌ Gagal menghapus produk.");
@@ -60,7 +64,7 @@ export default function ProductList() {
                     {(p.images || []).slice(0, 5).map((img, i) => (
                       <img
                         key={i}
-                        src={`http://localhost:5005/${img}`}
+                        src={`${import.meta.env.VITE_API_URL}/${img}`}
                         alt={`img-${i}`}
                         className="h-12 w-12 object-cover rounded border"
                       />
@@ -103,7 +107,7 @@ export default function ProductList() {
               {(p.images || []).slice(0, 3).map((img, i) => (
                 <img
                   key={i}
-                  src={`http://localhost:5005/${img}`}
+                  src={`${import.meta.env.VITE_API_URL}/${img}`}
                   alt={`img-${i}`}
                   className="h-16 w-16 object-cover rounded border"
                 />

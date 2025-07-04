@@ -9,7 +9,7 @@ export default function CheckoutHistory() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/checkout/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/checkout/${id}`)
       .then((res) => {
         setCheckout(res.data);
         setLoading(false);

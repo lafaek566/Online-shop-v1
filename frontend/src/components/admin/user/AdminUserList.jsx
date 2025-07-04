@@ -7,13 +7,13 @@ export default function AdminUserList() {
   const itemsPerPage = 5;
 
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5005/api/auth");
+    const res = await axios.get("${import.meta.env.VITE_API_URL}/api/auth");
     setUsers(res.data);
   };
 
   const handleDelete = async (id) => {
     if (confirm("Yakin ingin menghapus user ini?")) {
-      await axios.delete(`http://localhost:5005/api/auth/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth/${id}`);
       fetchUsers();
     }
   };

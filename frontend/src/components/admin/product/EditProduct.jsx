@@ -19,11 +19,13 @@ export default function EditProduct() {
   const [showRedirectOptions, setShowRedirectOptions] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/api/products/${id}`).then((res) => {
-      const { title, sku, description, qty, images } = res.data;
-      setForm({ title, sku, description, qty });
-      setExistingImages(images || []);
-    });
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/products/${id}`)
+      .then((res) => {
+        const { title, sku, description, qty, images } = res.data;
+        setForm({ title, sku, description, qty });
+        setExistingImages(images || []);
+      });
   }, [id]);
 
   const handleChange = (e) =>
@@ -53,7 +55,10 @@ export default function EditProduct() {
     });
 
     try {
-      await axios.put(`http://localhost:5005/api/products/${id}`, formData);
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/products/${id}`,
+        formData
+      );
       setShowRedirectOptions(true);
     } catch (error) {
       console.error(error);
@@ -107,7 +112,7 @@ export default function EditProduct() {
                 {existingImages.map((img, index) => (
                   <img
                     key={index}
-                    src={`http://localhost:5005/${img}`}
+                    src={`${import.meta.env.VITE_API_URL}/${img}`}
                     alt={`img-${index}`}
                     className="h-24 w-full object-cover rounded"
                   />

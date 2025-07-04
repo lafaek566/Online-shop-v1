@@ -9,7 +9,9 @@ export default function Editcheckout() {
 
   useEffect(() => {
     const fetchCheckout = async () => {
-      const res = await axios.get(`http://localhost:5005/api/checkout/${id}`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/checkout/${id}`
+      );
       setCheckout(res.data);
     };
     fetchCheckout();
@@ -17,7 +19,10 @@ export default function Editcheckout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5005/api/checkout/${id}`, checkout);
+    await axios.put(
+      `${import.meta.env.VITE_API_URL}/api/checkout/${id}`,
+      checkout
+    );
     alert("✅ Berhasil update checkout!");
     navigate("/admin");
   };
