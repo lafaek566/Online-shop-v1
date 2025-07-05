@@ -36,7 +36,7 @@ app.use("/api/checkout", checkoutRoutes);
 // ✅ MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Hay MongoDB "))
+  .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 const PORT = process.env.PORT || 8080;
